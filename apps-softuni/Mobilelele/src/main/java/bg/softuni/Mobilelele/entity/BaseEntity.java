@@ -8,13 +8,13 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @Column(nullable = false)
-    private Instant created;
+    protected Instant created;
 
     @Column(nullable = false)
-    private Instant modified;
+    protected Instant modified;
 
     public long getId() {
         return id;
