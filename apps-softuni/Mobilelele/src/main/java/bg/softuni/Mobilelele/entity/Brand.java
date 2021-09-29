@@ -22,4 +22,13 @@ public class Brand extends BaseEntity {
         this.name = name;
         return this;
     }
+
+    public Set<Model> getModels() {
+        return models;
+    }
+
+    public Brand setModels(Set<Model> models) {
+        this.models = models;
+        return this;
+    }
 }

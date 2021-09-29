@@ -8,20 +8,21 @@ import javax.persistence.*;
 @Table(name = "models")
 public class Model extends BaseEntity{
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private CategoryEnum category;
 
-    @Column(length = 512)
+    @Column(length = 512, nullable = false)
     private String imageUrl;
 
-    @Column(name = "start_year")
-    private int startYear;
+    @Column(name = "start_year",nullable = false)
+    private Integer startYear;
 
     @Column(name = "end_year")
-    private int endYear;
+    private Integer endYear;
 
     @ManyToOne
     private Brand brand;
@@ -53,7 +54,7 @@ public class Model extends BaseEntity{
         return this;
     }
 
-    public int getStartYear() {
+    public Integer getStartYear() {
         return startYear;
     }
 
@@ -62,7 +63,7 @@ public class Model extends BaseEntity{
         return this;
     }
 
-    public int getEndYear() {
+    public Integer getEndYear() {
         return endYear;
     }
 

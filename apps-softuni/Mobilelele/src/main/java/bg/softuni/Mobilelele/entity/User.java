@@ -1,6 +1,8 @@
 package bg.softuni.Mobilelele.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -18,8 +20,11 @@ public class User extends BaseEntity{
     @Column
     private boolean isActive;
 
-    @OneToOne
-    private Role role;
+    @Column
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<>();
 
     @Column
     private String imageUrl;
@@ -61,21 +66,30 @@ public class User extends BaseEntity{
         return this;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public User setRole(Role role) {
-        this.role = role;
-        return this;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public User setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public User setRoles(Set<Role> roles) {
+        this.roles = roles;
         return this;
     }
 }
