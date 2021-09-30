@@ -1,7 +1,10 @@
 package bg.softuni.Mobilelele.entity;
 
 import javax.persistence.*;
+import java.time.Clock;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @MappedSuperclass
 public class BaseEntity {
@@ -10,10 +13,10 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "created")
     protected Instant created;
 
-    @Column(nullable = false)
+    @Column(name = "modified")
     protected Instant modified;
 
     public long getId() {
@@ -23,5 +26,15 @@ public class BaseEntity {
     public BaseEntity setId(long id) {
         this.id = id;
         return this;
+    }
+
+    @PrePersist
+    public void beforeCreate() {
+        this.created = Instant.now();
+    }
+
+    @PostPersist
+    public void onUpdate() {
+        this.modified = Instant.now();
     }
 }

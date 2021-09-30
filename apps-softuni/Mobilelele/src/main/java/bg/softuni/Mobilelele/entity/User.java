@@ -11,16 +11,16 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String username;
 
-    @Column
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "is_active")
     private boolean isActive;
 
-    @Column
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
