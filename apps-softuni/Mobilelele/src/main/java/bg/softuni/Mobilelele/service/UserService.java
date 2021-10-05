@@ -4,5 +4,9 @@ import bg.softuni.Mobilelele.entity.service.UserLoginServiceModel;
 
 public interface UserService {
 
-    boolean login (UserLoginServiceModel loginServiceModel);
+    boolean login(UserLoginServiceModel loginServiceModel);
+
+    void initializeUsersAndRoles();
+
+    void logout();
 }

@@ -11,7 +11,7 @@ public class Brand extends BaseEntity {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private Set<Model> models;
 
     public String getName() {

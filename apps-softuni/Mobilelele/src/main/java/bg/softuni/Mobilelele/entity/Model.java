@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "models")
-public class Model extends BaseEntity{
+public class Model extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
@@ -18,7 +18,7 @@ public class Model extends BaseEntity{
     @Column(length = 512, nullable = false)
     private String imageUrl;
 
-    @Column(name = "start_year",nullable = false)
+    @Column(name = "start_year", nullable = false)
     private Integer startYear;
 
     @Column(name = "end_year")

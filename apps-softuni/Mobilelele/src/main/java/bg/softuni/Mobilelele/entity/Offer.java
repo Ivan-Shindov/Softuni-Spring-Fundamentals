@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "offers")
-public class Offer extends BaseEntity{
+public class Offer extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String description;

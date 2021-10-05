@@ -13,7 +13,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @Column(nullable = false,name = "created")
+    @Column(nullable = false, name = "created")
     protected Instant created;
 
     @Column(name = "modified")
