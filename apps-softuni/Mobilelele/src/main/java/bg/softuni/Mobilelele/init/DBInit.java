@@ -1,6 +1,6 @@
 package bg.softuni.Mobilelele.init;
 
-import bg.softuni.Mobilelele.entity.User;
+import bg.softuni.Mobilelele.service.OfferService;
 import bg.softuni.Mobilelele.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class DBInit implements CommandLineRunner {
 
     private final UserService userService;
+    private final OfferService offerService;
 
-    public DBInit(UserService userService) {
+    public DBInit(UserService userService, OfferService offerService) {
         this.userService = userService;
+        this.offerService = offerService;
     }
 
 
@@ -19,5 +21,6 @@ public class DBInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         userService.initializeUsersAndRoles();
+        offerService.initializeOffers();
     }
 }
