@@ -20,18 +20,4 @@ public class DBInit implements CommandLineRunner {
 
         userService.initializeUsersAndRoles();
     }
-
-//    private void initializeUsers() {
-//        if (userRepository.count() == 0) {
-//            User admin = new User();
-//
-//            admin.setActive(true)
-//                    .setUsername("admin")
-//                    .setFirstName("Adminkata")
-//                    .setLastName("Adminov")
-//                    .setPassword(passwordEncoder.encode("1234"));
-//
-//            userRepository.save(admin);
-//        }
-//    }
 }

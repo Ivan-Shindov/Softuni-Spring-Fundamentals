@@ -1,7 +1,11 @@
 package bg.softuni.Mobilelele.user;
 
+import bg.softuni.Mobilelele.entity.enums.RoleEnum;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @SessionScope
@@ -11,9 +15,10 @@ public class CurrentUser {
     private String username;
     private String firstName;
     private String lastName;
+    private Set<RoleEnum> roles;
 
     public CurrentUser(){
-
+        this.roles = new HashSet<>();
     }
 
     public boolean isLoggedIn() {
@@ -56,6 +61,21 @@ public class CurrentUser {
         setLoggedIn(false)
                 .setUsername(null)
                 .setFirstName(null)
-                .setLastName(null);
+                .setLastName(null)
+                .cleanRoles();
+    }
+
+    public CurrentUser addRole(RoleEnum role) {
+        this.roles.add(role);
+        return this;
+    }
+
+    public boolean isAdmin() {
+        return roles.contains(RoleEnum.ADMIN);
+    }
+
+    public CurrentUser cleanRoles() {
+        this.roles.clear();
+        return this;
     }
 }
