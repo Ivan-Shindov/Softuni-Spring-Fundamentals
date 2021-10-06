@@ -2,11 +2,9 @@ package bg.softuni.Mobilelele.entity;
 
 import bg.softuni.Mobilelele.entity.enums.EngineEnum;
 import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 
 @Entity
 @Table(name = "offers")
@@ -23,16 +21,20 @@ public class Offer extends BaseEntity {
     private String imageUrl;
 
     @Column
+    private int mileage;
+
+    @Column
     private BigDecimal price;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TransmissionEnum transmission;
 
     @Column(length = 4)
     private int year;
 
-    @ManyToMany()
-    private Set<Model> models;
+    @ManyToOne
+    private Model model;
 
     @ManyToOne
     private User seller;
@@ -91,14 +93,7 @@ public class Offer extends BaseEntity {
         return this;
     }
 
-    public Set<Model> getModels() {
-        return models;
-    }
 
-    public Offer setModels(Set<Model> models) {
-        this.models = models;
-        return this;
-    }
 
     public User getSeller() {
         return seller;
@@ -106,6 +101,24 @@ public class Offer extends BaseEntity {
 
     public Offer setSeller(User seller) {
         this.seller = seller;
+        return this;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public Offer setMileage(int mileage) {
+        this.mileage = mileage;
+        return this;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public Offer setModel(Model model) {
+        this.model = model;
         return this;
     }
 }
