@@ -4,6 +4,7 @@ import bg.softuni.Mobilelele.entity.Role;
 import bg.softuni.Mobilelele.entity.User;
 import bg.softuni.Mobilelele.entity.enums.RoleEnum;
 import bg.softuni.Mobilelele.entity.service.UserLoginServiceModel;
+import bg.softuni.Mobilelele.entity.service.UserRegisterServiceModel;
 import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.repository.UserRoleRepository;
 import bg.softuni.Mobilelele.service.UserService;
@@ -47,10 +48,8 @@ public class UserServiceImpl implements UserService {
 
             if (success) {
                 User loggedUser = userEntityOpt.get();
-                currentUser.setLoggedIn(true)
-                        .setUsername(loggedUser.getUsername())
-                        .setFirstName(loggedUser.getFirstName())
-                        .setLastName(loggedUser.getLastName());
+
+                login(loggedUser);
 
                 loggedUser.getRoles()
                         .forEach(r -> currentUser.addRole(r.getRole()));
@@ -65,6 +64,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout() {
         currentUser.clear();
+    }
+
+
+
+    @Override
+    public void registerAndLogin(UserRegisterServiceModel userServiceModel) {
+
+        Role role = userRoleRepository.findByRole(RoleEnum.USER);
+
+        User user = new User();
+
+        user
+                .setUsername(userServiceModel.getUsername())
+                .setFirstName(userServiceModel.getFirstName())
+                .setLastName(userServiceModel.getLastName())
+                .setActive(true)
+                .setRoles(Set.of(role))
+                .setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
+
+        userRepository.save(user);
+
+        login(user);
+    }
+
+    private void login(User user) {
+
+        currentUser.setLoggedIn(true)
+                .setUsername(user.getUsername())
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName());
     }
 
 
