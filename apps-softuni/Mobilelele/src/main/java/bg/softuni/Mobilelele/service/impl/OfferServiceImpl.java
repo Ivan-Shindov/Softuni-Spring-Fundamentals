@@ -23,7 +23,8 @@ public class OfferServiceImpl implements OfferService {
     private final ModelRepository modelRepository;
     private final UserRepository userRepository;
 
-    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper, ModelRepository modelRepository, UserRepository userRepository) {
+    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper,
+                            ModelRepository modelRepository, UserRepository userRepository) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
         this.modelRepository = modelRepository;
