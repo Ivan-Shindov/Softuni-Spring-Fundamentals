@@ -1,18 +1,12 @@
 package bg.softuni.Mobilelele.entity.views;
 
-import bg.softuni.Mobilelele.entity.Model;
-import bg.softuni.Mobilelele.entity.User;
 import bg.softuni.Mobilelele.entity.enums.EngineEnum;
 import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 
 public class OfferSummaryView {
 
+    private long id;
     private String description;
     private EngineEnum engine;
     private String imageUrl;
@@ -91,6 +85,15 @@ public class OfferSummaryView {
 
     public OfferSummaryView setModel(String model) {
         this.model = model;
+        return this;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public OfferSummaryView setId(long id) {
+        this.id = id;
         return this;
     }
 }

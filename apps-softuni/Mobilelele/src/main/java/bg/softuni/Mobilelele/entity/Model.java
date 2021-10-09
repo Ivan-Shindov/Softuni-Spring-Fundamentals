@@ -24,6 +24,9 @@ public class Model extends BaseEntity {
     @Column(name = "end_year")
     private Integer endYear;
 
+    @Column
+    private int mileage;
+
     @ManyToOne
     private Brand brand;
 
@@ -78,6 +81,15 @@ public class Model extends BaseEntity {
 
     public Model setBrand(Brand brand) {
         this.brand = brand;
+        return this;
+    }
+
+    public int getMileage() {
+        return mileage;
+    }
+
+    public Model setMileage(int mileage) {
+        this.mileage = mileage;
         return this;
     }
 }

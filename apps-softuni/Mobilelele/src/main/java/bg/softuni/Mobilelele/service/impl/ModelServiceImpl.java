@@ -38,6 +38,7 @@ public class ModelServiceImpl implements ModelService {
                     .setStartYear(2000)
                     .setEndYear(2021)
                     .setBrand(bmw)
+                    .setMileage(12303)
                     .setCategory(CategoryEnum.CAR)
                     .setImageUrl("https://kolalok.com/newimage/small/2018-x5-g05-bmw.jpg");
 
@@ -47,6 +48,7 @@ public class ModelServiceImpl implements ModelService {
                     .setStartYear(1960)
                     .setEndYear(2021)
                     .setBrand(mercedes)
+                    .setMileage(10000)
                     .setCategory(CategoryEnum.CAR)
                     .setImageUrl("https://autodius.com/wp-content/uploads/2018/07/2018-mercedes-benz-s63-amg.jpg");
 
@@ -55,6 +57,7 @@ public class ModelServiceImpl implements ModelService {
                     .setName("GLE-Coupe")
                     .setStartYear(2011)
                     .setEndYear(2021)
+                    .setMileage(2031)
                     .setCategory(CategoryEnum.CAR)
                     .setImageUrl("https://www.mercedes-benz.bg/passengercars/mercedes-benz-cars/models/gle/coupe-c167/design/lines/_jcr_content/swipeableteaserbox/par/swipeableteaser/asset.MQ6.12.20191202040824.jpeg");
 
