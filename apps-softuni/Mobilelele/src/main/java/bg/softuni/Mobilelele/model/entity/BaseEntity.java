@@ -1,10 +1,7 @@
-package bg.softuni.Mobilelele.entity;
+package bg.softuni.Mobilelele.model.entity;
 
 import javax.persistence.*;
-import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @MappedSuperclass
 public class BaseEntity {

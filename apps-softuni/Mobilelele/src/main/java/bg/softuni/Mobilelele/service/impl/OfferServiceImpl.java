@@ -1,14 +1,16 @@
 package bg.softuni.Mobilelele.service.impl;
 
-import bg.softuni.Mobilelele.entity.Offer;
-import bg.softuni.Mobilelele.entity.enums.EngineEnum;
-import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
-import bg.softuni.Mobilelele.entity.views.ModelDetailsView;
-import bg.softuni.Mobilelele.entity.views.OfferSummaryView;
+import bg.softuni.Mobilelele.model.entity.Offer;
+import bg.softuni.Mobilelele.model.enums.EngineEnum;
+import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.model.service.OfferUpdateServiceModel;
+import bg.softuni.Mobilelele.model.views.ModelDetailsView;
+import bg.softuni.Mobilelele.model.views.OfferSummaryView;
 import bg.softuni.Mobilelele.repository.ModelRepository;
 import bg.softuni.Mobilelele.repository.OfferRepository;
 import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.service.OfferService;
+import bg.softuni.Mobilelele.web.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +67,7 @@ public class OfferServiceImpl implements OfferService {
 
             offer3
                     .setModel(modelRepository.findById(3L).orElse(null))
-                    .setImageUrl("https://media.autoexpress.co.uk/image/private/s--VfWlNFGx--/v1609948123/autoexpress/2021/01/New%20BMW%20X5%20M%20Competition%202021%20UK-16.jpg")
+                    .setImageUrl("https://kolalok.com/newimage/small/2018-x5-g05-bmw.jpg")
                     .setEngine(EngineEnum.GASOLINE)
                     .setMileage(126000)
                     .setYear(2020)
@@ -74,7 +76,7 @@ public class OfferServiceImpl implements OfferService {
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             offerRepository.save(offer2);
-            offerRepository.saveAll(List.of(offer,offer3));
+            offerRepository.saveAll(List.of(offer, offer3));
         }
     }
 
@@ -93,13 +95,14 @@ public class OfferServiceImpl implements OfferService {
     public ModelDetailsView getModelDetails(long inputId) {
         Offer offer = offerRepository.findById(inputId).orElse(null);
 
-
         ModelDetailsView view = modelMapper.map(offer, ModelDetailsView.class);
+
         String brand = offer.getModel().getBrand().getName();
         view.setBrandName(brand);
+
         view.setSeller(offer.getSeller().getFirstName() +
                 " " + offer.getSeller().getLastName());
-        view.setImage(offer.getModel().getImageUrl());
+        view.setImage(offer.getImageUrl());
         return view;
     }
 
@@ -108,10 +111,28 @@ public class OfferServiceImpl implements OfferService {
         offerRepository.deleteById(id);
     }
 
+    @Override
+    public void updateOffer(OfferUpdateServiceModel offerModel) {
+        Offer offer = offerRepository.findById(offerModel.getId())
+                .orElseThrow(() -> new ObjectNotFoundException("offer with " + offerModel.getId() + " not found."));
+
+        offer
+                .setPrice(offerModel.getPrice())
+                .setTransmission(offerModel.getTransmission())
+                .setYear(offerModel.getYear())
+                .setImageUrl(offerModel.getImage())
+                .setMileage(offerModel.getMileage())
+                .setEngine(offerModel.getEngine())
+                .setDescription(offerModel.getDescription());
+
+        offerRepository.save(offer);
+    }
+
     private OfferSummaryView mapper(Offer offer) {
 
         OfferSummaryView mapped = modelMapper.map(offer, OfferSummaryView.class);
         mapped.setModel(offer.getModel().getName());
+
         return mapped;
     }
 }

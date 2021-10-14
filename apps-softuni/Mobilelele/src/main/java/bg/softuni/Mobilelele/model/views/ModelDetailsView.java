@@ -1,14 +1,15 @@
-package bg.softuni.Mobilelele.entity.views;
+package bg.softuni.Mobilelele.model.views;
 
-import bg.softuni.Mobilelele.entity.BaseEntity;
-import bg.softuni.Mobilelele.entity.enums.EngineEnum;
-import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.model.entity.BaseEntity;
+import bg.softuni.Mobilelele.model.enums.EngineEnum;
+import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 public class ModelDetailsView extends BaseEntity {
 
+    private long id;
     private int year;
     private String brandName;
     private String modelName;
@@ -16,6 +17,7 @@ public class ModelDetailsView extends BaseEntity {
     private BigDecimal price;
     private EngineEnum engine;
     private TransmissionEnum transmission;
+    private String description;
     private String seller;
     private Instant created;
     private Instant modified;
@@ -120,6 +122,26 @@ public class ModelDetailsView extends BaseEntity {
 
     public ModelDetailsView setImage(String image) {
         this.image = image;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ModelDetailsView setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public ModelDetailsView setId(long id) {
+        this.id = id;
         return this;
     }
 }

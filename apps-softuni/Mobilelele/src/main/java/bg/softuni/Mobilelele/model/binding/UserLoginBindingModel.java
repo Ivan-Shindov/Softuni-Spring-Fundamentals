@@ -1,4 +1,4 @@
-package bg.softuni.Mobilelele.entity.binding;
+package bg.softuni.Mobilelele.model.binding;
 
 public class UserLoginBindingModel {
 

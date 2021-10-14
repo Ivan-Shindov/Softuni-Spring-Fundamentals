@@ -1,6 +1,6 @@
 package bg.softuni.Mobilelele.service.impl;
 
-import bg.softuni.Mobilelele.entity.Brand;
+import bg.softuni.Mobilelele.model.entity.Brand;
 import bg.softuni.Mobilelele.repository.BrandRepository;
 import bg.softuni.Mobilelele.service.BrandService;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
 package bg.softuni.Mobilelele.service.impl;
 
-import bg.softuni.Mobilelele.entity.Role;
-import bg.softuni.Mobilelele.entity.User;
-import bg.softuni.Mobilelele.entity.enums.RoleEnum;
-import bg.softuni.Mobilelele.entity.service.UserLoginServiceModel;
-import bg.softuni.Mobilelele.entity.service.UserRegisterServiceModel;
+import bg.softuni.Mobilelele.model.entity.Role;
+import bg.softuni.Mobilelele.model.entity.User;
+import bg.softuni.Mobilelele.model.enums.RoleEnum;
+import bg.softuni.Mobilelele.model.service.UserLoginServiceModel;
+import bg.softuni.Mobilelele.model.service.UserRegisterServiceModel;
 import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.repository.UserRoleRepository;
 import bg.softuni.Mobilelele.service.UserService;

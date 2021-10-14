@@ -1,6 +1,6 @@
-package bg.softuni.Mobilelele.entity.service;
+package bg.softuni.Mobilelele.model.service;
 
-import bg.softuni.Mobilelele.entity.binding.UserRegisterBindingModel;
+import bg.softuni.Mobilelele.model.binding.UserRegisterBindingModel;
 
 public class UserRegisterServiceModel extends UserRegisterBindingModel {
 

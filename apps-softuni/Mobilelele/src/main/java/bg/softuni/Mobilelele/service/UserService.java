@@ -1,7 +1,7 @@
 package bg.softuni.Mobilelele.service;
 
-import bg.softuni.Mobilelele.entity.service.UserLoginServiceModel;
-import bg.softuni.Mobilelele.entity.service.UserRegisterServiceModel;
+import bg.softuni.Mobilelele.model.service.UserLoginServiceModel;
+import bg.softuni.Mobilelele.model.service.UserRegisterServiceModel;
 
 public interface UserService {
 

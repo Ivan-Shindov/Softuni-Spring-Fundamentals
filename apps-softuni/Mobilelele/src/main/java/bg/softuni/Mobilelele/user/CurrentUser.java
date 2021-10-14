@@ -1,6 +1,6 @@
 package bg.softuni.Mobilelele.user;
 
-import bg.softuni.Mobilelele.entity.enums.RoleEnum;
+import bg.softuni.Mobilelele.model.enums.RoleEnum;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 

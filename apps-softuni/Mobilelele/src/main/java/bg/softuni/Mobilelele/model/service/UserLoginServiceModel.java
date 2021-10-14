@@ -1,4 +1,4 @@
-package bg.softuni.Mobilelele.entity.service;
+package bg.softuni.Mobilelele.model.service;
 
 public class UserLoginServiceModel {
 

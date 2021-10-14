@@ -1,7 +1,7 @@
-package bg.softuni.Mobilelele.entity.views;
+package bg.softuni.Mobilelele.model.views;
 
-import bg.softuni.Mobilelele.entity.enums.EngineEnum;
-import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.model.enums.EngineEnum;
+import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
 import java.math.BigDecimal;
 
 public class OfferSummaryView {
