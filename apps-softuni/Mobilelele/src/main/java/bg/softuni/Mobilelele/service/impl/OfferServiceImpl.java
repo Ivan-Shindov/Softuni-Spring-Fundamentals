@@ -1,15 +1,22 @@
 package bg.softuni.Mobilelele.service.impl;
 
+import bg.softuni.Mobilelele.model.entity.Brand;
+import bg.softuni.Mobilelele.model.entity.Model;
 import bg.softuni.Mobilelele.model.entity.Offer;
+import bg.softuni.Mobilelele.model.enums.CategoryEnum;
 import bg.softuni.Mobilelele.model.enums.EngineEnum;
 import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.model.service.OfferAddServiceModel;
 import bg.softuni.Mobilelele.model.service.OfferUpdateServiceModel;
 import bg.softuni.Mobilelele.model.views.ModelDetailsView;
 import bg.softuni.Mobilelele.model.views.OfferSummaryView;
 import bg.softuni.Mobilelele.repository.ModelRepository;
 import bg.softuni.Mobilelele.repository.OfferRepository;
 import bg.softuni.Mobilelele.repository.UserRepository;
+import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
+import bg.softuni.Mobilelele.service.UserService;
+import bg.softuni.Mobilelele.user.CurrentUser;
 import bg.softuni.Mobilelele.web.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -24,14 +31,16 @@ public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
     private final ModelMapper modelMapper;
     private final ModelRepository modelRepository;
-    private final UserRepository userRepository;
+    private final BrandService brandService;
+    private final UserService userService;
 
     public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper,
-                            ModelRepository modelRepository, UserRepository userRepository) {
+                            ModelRepository modelRepository, BrandService brandService, UserService userService) {
         this.offerRepository = offerRepository;
         this.modelMapper = modelMapper;
         this.modelRepository = modelRepository;
-        this.userRepository = userRepository;
+        this.brandService = brandService;
+        this.userService = userService;
     }
 
     @Override
@@ -47,7 +56,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(20000)
                     .setYear(2019)
                     .setPrice(BigDecimal.valueOf(200000))
-                    .setSeller(userRepository.findByUsername("pesho").orElse(null))
+                    .setSeller(userService.findByUsername("pesho"))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             Offer offer2 = new Offer();
@@ -60,7 +69,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(10000)
                     .setYear(2018)
                     .setPrice(BigDecimal.valueOf(204200))
-                    .setSeller(userRepository.findByUsername("pesho").orElse(null))
+                    .setSeller(userService.findByUsername("pesho"))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             Offer offer3 = new Offer();
@@ -72,7 +81,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(126000)
                     .setYear(2020)
                     .setPrice(BigDecimal.valueOf(108_555))
-                    .setSeller(userRepository.findByUsername("admin").orElse(null))
+                    .setSeller(userService.findByUsername("admin"))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             offerRepository.save(offer2);
@@ -124,6 +133,33 @@ public class OfferServiceImpl implements OfferService {
                 .setMileage(offerModel.getMileage())
                 .setEngine(offerModel.getEngine())
                 .setDescription(offerModel.getDescription());
+
+        offerRepository.save(offer);
+    }
+
+    @Override
+    public void addOffer(OfferAddServiceModel offerAddServiceModel) {
+        String brandName = offerAddServiceModel.getBrand();
+        Brand brand = brandService.findByBrandOrCreate(brandName);
+
+        Model model = new Model();
+        model.setBrand(brand)
+                .setCategory(CategoryEnum.CAR)
+                .setName(offerAddServiceModel.getModel())
+                .setEndYear(2018)
+                .setStartYear(2010)
+                .setMileage(offerAddServiceModel.getMileage())
+                .setImageUrl(offerAddServiceModel.getImageUrl());
+
+        brandService.addModel(model,brand);
+
+        String currentUserUsername = userService.getCurrentUserUsername();
+
+        Offer offer = modelMapper.map(offerAddServiceModel, Offer.class);
+
+        offer
+                .setModel(model)
+                .setSeller(userService.findByUsername(currentUserUsername));
 
         offerRepository.save(offer);
     }

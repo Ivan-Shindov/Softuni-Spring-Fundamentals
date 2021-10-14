@@ -1,32 +1,38 @@
 package bg.softuni.Mobilelele.web;
 
+import bg.softuni.Mobilelele.model.binding.OfferAddBindingModel;
 import bg.softuni.Mobilelele.model.binding.OfferUpdateBindingModel;
 import bg.softuni.Mobilelele.model.enums.EngineEnum;
 import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.model.service.OfferAddServiceModel;
 import bg.softuni.Mobilelele.model.service.OfferUpdateServiceModel;
 import bg.softuni.Mobilelele.model.views.ModelDetailsView;
+import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
+import bg.softuni.Mobilelele.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class OffersController {
 
     private final OfferService offerService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
+    private final BrandService brandService;
 
-    public OffersController(OfferService offerService, ModelMapper modelMapper) {
+    public OffersController(OfferService offerService, ModelMapper modelMapper, UserService userService, BrandService brandService) {
         this.offerService = offerService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.brandService = brandService;
     }
 
     @GetMapping("/offers/all")
@@ -97,5 +103,50 @@ public class OffersController {
         model.addAttribute("transmissions", TransmissionEnum.values());
 
         return "update";
+    }
+
+    @ModelAttribute("offerAddModel")
+    public OfferAddBindingModel offerAddBindingModel() {
+        return new OfferAddBindingModel();
+    }
+
+    @GetMapping("/offers/add")
+    public String addOffer(Model model) {
+
+        List<String> allBrandNames = brandService.getAllBrandNames();
+
+        model.addAttribute("engines", EngineEnum.values());
+        model.addAttribute("transmissions", TransmissionEnum.values());
+        model.addAttribute("brands", allBrandNames);
+
+        return "offer-add";
+    }
+
+
+    @PostMapping("/offers/add")
+    public String postOffer(@Valid OfferAddBindingModel offerAddBindingModel,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()){
+
+            redirectAttributes
+                    .addFlashAttribute("offerAddModel",offerAddBindingModel)
+                    .addFlashAttribute(
+                    "org.springframework.validation.BindingResult.offerAddBindingModel", bindingResult);
+
+            return "redirect:/offers/add";
+        }
+
+        OfferAddServiceModel offerAddServiceModel = modelMapper.map(offerAddBindingModel, OfferAddServiceModel.class);
+
+        if (!userService.isLogin()) {
+
+            return "redirect:/users/login";
+        }
+
+        offerService.addOffer(offerAddServiceModel);
+
+        return "offer-add";
     }
 }

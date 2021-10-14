@@ -94,6 +94,24 @@ public class UserServiceImpl implements UserService {
        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
     }
 
+    @Override
+    public boolean isLogin() {
+
+        return currentUser.isLoggedIn();
+    }
+
+    @Override
+    public User findByUsername(String name) {
+
+       return userRepository.findByUsername(name).orElse(null);
+    }
+
+    @Override
+    public String getCurrentUserUsername() {
+        return currentUser.getUsername();
+    }
+
+
     private void login(User user) {
 
         currentUser.setLoggedIn(true)

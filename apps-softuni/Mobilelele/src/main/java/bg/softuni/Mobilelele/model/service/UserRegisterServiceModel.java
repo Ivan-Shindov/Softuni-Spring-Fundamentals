@@ -6,6 +6,6 @@ public class UserRegisterServiceModel extends UserRegisterBindingModel {
 
     @Override
     public String getUsername() {
-        return super.getUsername() != null ?super.getUsername().trim() : null;
+        return super.getUsername() != null ? super.getUsername().trim() : null;
     }
 }

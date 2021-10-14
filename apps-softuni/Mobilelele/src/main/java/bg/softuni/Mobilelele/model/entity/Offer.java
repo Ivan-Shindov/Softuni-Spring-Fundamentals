@@ -21,7 +21,7 @@ public class Offer extends BaseEntity {
     private String imageUrl;
 
     @Column
-    private int mileage;
+    private Integer mileage;
 
     @Column
     private BigDecimal price;
@@ -31,7 +31,7 @@ public class Offer extends BaseEntity {
     private TransmissionEnum transmission;
 
     @Column(length = 4)
-    private int year;
+    private Integer year;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Model model;
