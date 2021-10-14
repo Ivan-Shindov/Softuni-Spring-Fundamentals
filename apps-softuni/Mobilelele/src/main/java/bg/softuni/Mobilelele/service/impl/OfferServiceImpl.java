@@ -3,6 +3,7 @@ package bg.softuni.Mobilelele.service.impl;
 import bg.softuni.Mobilelele.entity.Offer;
 import bg.softuni.Mobilelele.entity.enums.EngineEnum;
 import bg.softuni.Mobilelele.entity.enums.TransmissionEnum;
+import bg.softuni.Mobilelele.entity.views.ModelDetailsView;
 import bg.softuni.Mobilelele.entity.views.OfferSummaryView;
 import bg.softuni.Mobilelele.repository.ModelRepository;
 import bg.softuni.Mobilelele.repository.OfferRepository;
@@ -42,6 +43,7 @@ public class OfferServiceImpl implements OfferService {
                     .setImageUrl("https://cdn.motor1.com/images/mgl/z2mo6/s1/mercedes-amg-gle-63-s-coupe.jpg")
                     .setEngine(EngineEnum.DIESEL)
                     .setMileage(20000)
+                    .setYear(2019)
                     .setPrice(BigDecimal.valueOf(200000))
                     .setSeller(userRepository.findByUsername("pesho").orElse(null))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
@@ -54,6 +56,7 @@ public class OfferServiceImpl implements OfferService {
                     .setModel(modelRepository.findById(2L).orElse(null))
                     .setEngine(EngineEnum.GASOLINE)
                     .setMileage(10000)
+                    .setYear(2018)
                     .setPrice(BigDecimal.valueOf(204200))
                     .setSeller(userRepository.findByUsername("pesho").orElse(null))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
@@ -65,6 +68,7 @@ public class OfferServiceImpl implements OfferService {
                     .setImageUrl("https://media.autoexpress.co.uk/image/private/s--VfWlNFGx--/v1609948123/autoexpress/2021/01/New%20BMW%20X5%20M%20Competition%202021%20UK-16.jpg")
                     .setEngine(EngineEnum.GASOLINE)
                     .setMileage(126000)
+                    .setYear(2020)
                     .setPrice(BigDecimal.valueOf(108_555))
                     .setSeller(userRepository.findByUsername("admin").orElse(null))
                     .setTransmission(TransmissionEnum.AUTOMATIC);
@@ -83,6 +87,25 @@ public class OfferServiceImpl implements OfferService {
                 .stream()
                 .map(this::mapper)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ModelDetailsView getModelDetails(long inputId) {
+        Offer offer = offerRepository.findById(inputId).orElse(null);
+
+
+        ModelDetailsView view = modelMapper.map(offer, ModelDetailsView.class);
+        String brand = offer.getModel().getBrand().getName();
+        view.setBrandName(brand);
+        view.setSeller(offer.getSeller().getFirstName() +
+                " " + offer.getSeller().getLastName());
+        view.setImage(offer.getModel().getImageUrl());
+        return view;
+    }
+
+    @Override
+    public void deleteOffer(long id) {
+        offerRepository.deleteById(id);
     }
 
     private OfferSummaryView mapper(Offer offer) {

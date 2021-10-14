@@ -27,7 +27,7 @@ public class Model extends BaseEntity {
     @Column
     private int mileage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Brand brand;
 
     public String getName() {

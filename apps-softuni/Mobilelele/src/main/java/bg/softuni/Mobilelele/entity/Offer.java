@@ -33,10 +33,10 @@ public class Offer extends BaseEntity {
     @Column(length = 4)
     private int year;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Model model;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User seller;
 
     public String getDescription() {

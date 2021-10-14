@@ -28,6 +28,24 @@ public class BaseEntity {
         return this;
     }
 
+    public Instant getCreated() {
+        return created;
+    }
+
+    public BaseEntity setCreated(Instant created) {
+        this.created = created;
+        return this;
+    }
+
+    public Instant getModified() {
+        return modified;
+    }
+
+    public BaseEntity setModified(Instant modified) {
+        this.modified = modified;
+        return this;
+    }
+
     @PrePersist
     public void beforeCreate() {
         this.created = Instant.now();
