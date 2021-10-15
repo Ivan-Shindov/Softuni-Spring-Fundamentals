@@ -2,6 +2,7 @@ package bg.softuni.Mobilelele.model.binding;
 
 
 import bg.softuni.Mobilelele.model.validator.UniqueUserName;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,11 +24,11 @@ public class UserRegisterBindingModel {
     private String username;
 
     @NotNull
-    @Min(5)
+    @Length(min = 5)
     private String password;
 
     @NotNull
-    @Min(5)
+    @Length(min = 5)
     private String confirmPassword;
 
     public String getFirstName() {

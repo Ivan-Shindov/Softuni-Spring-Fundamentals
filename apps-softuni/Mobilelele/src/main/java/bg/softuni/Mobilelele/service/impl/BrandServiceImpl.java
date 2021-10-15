@@ -2,20 +2,27 @@ package bg.softuni.Mobilelele.service.impl;
 
 import bg.softuni.Mobilelele.model.entity.Brand;
 import bg.softuni.Mobilelele.model.entity.Model;
+import bg.softuni.Mobilelele.model.service.BrandServiceSelectModel;
 import bg.softuni.Mobilelele.repository.BrandRepository;
 import bg.softuni.Mobilelele.service.BrandService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
+    private final ModelMapper modelMapper;
 
-    public BrandServiceImpl(BrandRepository brandRepository) {
+    public BrandServiceImpl(BrandRepository brandRepository, ModelMapper modelMapper) {
         this.brandRepository = brandRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -61,5 +68,15 @@ public class BrandServiceImpl implements BrandService {
     public List<String> getAllBrandNames() {
 
         return brandRepository.findAllBrandNames();
+    }
+
+    @Override
+    public List<BrandServiceSelectModel>getAllBrands() throws Exception {
+
+        return brandRepository.findAll()
+                .stream()
+                .map(b -> modelMapper.map(b, BrandServiceSelectModel.class))
+                .collect(Collectors.toList());
+
     }
 }

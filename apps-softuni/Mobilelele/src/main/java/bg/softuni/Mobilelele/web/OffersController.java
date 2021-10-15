@@ -111,13 +111,13 @@ public class OffersController {
     }
 
     @GetMapping("/offers/add")
-    public String addOffer(Model model) {
+    public String addOffer(Model model) throws Exception {
 
-        List<String> allBrandNames = brandService.getAllBrandNames();
+        // TODO check for exceptions..
 
         model.addAttribute("engines", EngineEnum.values());
         model.addAttribute("transmissions", TransmissionEnum.values());
-        model.addAttribute("brands", allBrandNames);
+        model.addAttribute("brands", brandService.getAllBrands());
 
         return "offer-add";
     }

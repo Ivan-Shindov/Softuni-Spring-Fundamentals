@@ -8,10 +8,11 @@ import java.util.Set;
 @Table(name = "brands")
 public class Brand extends BaseEntity {
 
-    @Column
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "brand",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Model> models;
 
     public String getName() {

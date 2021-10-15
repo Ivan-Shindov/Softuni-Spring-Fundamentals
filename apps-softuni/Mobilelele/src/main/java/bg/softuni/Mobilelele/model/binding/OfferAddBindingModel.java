@@ -3,16 +3,14 @@ package bg.softuni.Mobilelele.model.binding;
 import bg.softuni.Mobilelele.model.enums.EngineEnum;
 import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class OfferAddBindingModel {
 
     @NotNull
     @Min(1930)
+    @Max(2050)
     private Integer year;
 
     @Positive

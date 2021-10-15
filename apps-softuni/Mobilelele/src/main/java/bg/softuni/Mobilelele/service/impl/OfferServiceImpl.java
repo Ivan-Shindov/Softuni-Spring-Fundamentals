@@ -153,6 +153,8 @@ public class OfferServiceImpl implements OfferService {
 
         brandService.addModel(model,brand);
 
+        modelRepository.save(model);
+
         String currentUserUsername = userService.getCurrentUserUsername();
 
         Offer offer = modelMapper.map(offerAddServiceModel, Offer.class);
@@ -168,6 +170,7 @@ public class OfferServiceImpl implements OfferService {
 
         OfferSummaryView mapped = modelMapper.map(offer, OfferSummaryView.class);
         mapped.setModel(offer.getModel().getName());
+        mapped.setBrand(offer.getModel().getBrand().getName());
 
         return mapped;
     }
