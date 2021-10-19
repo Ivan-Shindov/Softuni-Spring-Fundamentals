@@ -5,6 +5,7 @@ import com.example.coffeshopapp.model.entity.OrderEntity;
 import com.example.coffeshopapp.model.entity.UserEntity;
 import com.example.coffeshopapp.model.service.OrderServiceModel;
 import com.example.coffeshopapp.model.service.UserServiceModel;
+import com.example.coffeshopapp.model.view.OrderViewModel;
 import com.example.coffeshopapp.repository.OrderRepository;
 import com.example.coffeshopapp.security.CurrentUser;
 import com.example.coffeshopapp.service.CategoryService;
@@ -12,6 +13,9 @@ import com.example.coffeshopapp.service.OrderService;
 import com.example.coffeshopapp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -44,5 +48,27 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setEmployee(modelMapper.map(userServiceModel, UserEntity.class));
 
         orderRepository.save(orderEntity);
+    }
+
+    @Override
+    public List<OrderViewModel> getAllOrderedByPriceDesc() {
+
+        return orderRepository.getAllOrderByDesc()
+                .stream()
+                .map(order -> modelMapper.map(order, OrderViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void readyOrder(Long id) {
+        this.orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Integer calculateLeftTime(List<OrderViewModel> orders) {
+        return orders
+                .stream()
+                .mapToInt(value -> value.getCategory().getNeededTime())
+                .sum();
     }
 }
