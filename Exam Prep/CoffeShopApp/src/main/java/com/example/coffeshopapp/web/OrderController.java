@@ -1,6 +1,8 @@
 package com.example.coffeshopapp.web;
 
 import com.example.coffeshopapp.model.binding.AddOrderBindingModel;
+import com.example.coffeshopapp.model.service.OrderServiceModel;
+import com.example.coffeshopapp.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,13 +17,15 @@ import javax.validation.Valid;
 public class OrderController {
 
     private final ModelMapper modelMapper;
+    private final OrderService orderService;
 
-    public OrderController(ModelMapper modelMapper) {
+    public OrderController(ModelMapper modelMapper, OrderService orderService) {
         this.modelMapper = modelMapper;
+        this.orderService = orderService;
     }
 
     @GetMapping("/orders/add")
-    public String orders() {
+    public String getOrdersAdd() {
 
 
         return "order-add";
@@ -42,8 +46,10 @@ public class OrderController {
                     .addFlashAttribute("addOrderBindingModel", addOrderBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.addOrderBindingModel", bindingResult);
 
-            return "redirect:orders";
+            return "redirect:/orders/add";
         }
+
+        orderService.addOrder(modelMapper.map(addOrderBindingModel, OrderServiceModel.class));
 
 
 

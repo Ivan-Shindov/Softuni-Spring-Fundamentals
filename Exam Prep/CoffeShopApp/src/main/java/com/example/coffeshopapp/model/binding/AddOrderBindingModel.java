@@ -58,11 +58,11 @@ public class AddOrderBindingModel {
         return this;
     }
 
-    public CategoryEnum getCategoryName() {
+    public CategoryEnum getCategory() {
         return category;
     }
 
-    public AddOrderBindingModel setCategoryName(CategoryEnum category) {
+    public AddOrderBindingModel setCategory (CategoryEnum category) {
         this.category = category;
         return this;
     }

@@ -4,6 +4,8 @@ import com.example.coffeshopapp.service.CategoryService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class DBInit implements CommandLineRunner {
 
@@ -16,5 +18,6 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         categoryService.initializeCategories();
+
     }
 }
