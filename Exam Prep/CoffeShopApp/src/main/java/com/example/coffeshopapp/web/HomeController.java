@@ -1,7 +1,9 @@
 package com.example.coffeshopapp.web;
 
+import com.example.coffeshopapp.model.view.EmployeeViewModel;
 import com.example.coffeshopapp.model.view.OrderViewModel;
 import com.example.coffeshopapp.service.OrderService;
+import com.example.coffeshopapp.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +17,12 @@ public class HomeController {
 
     private final OrderService orderService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
 
-    public HomeController(OrderService orderService, ModelMapper modelMapper) {
+    public HomeController(OrderService orderService, ModelMapper modelMapper, UserService userService) {
         this.orderService = orderService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -31,9 +35,11 @@ public class HomeController {
     public String home(Model model) {
 
         List<OrderViewModel> orders = orderService.getAllOrderedByPriceDesc();
+        List<EmployeeViewModel> employees = userService.getAllByCountOrdersDesc();
 
         model.addAttribute("ordersDesc", orders);
         model.addAttribute("leftTime", orderService.calculateLeftTime(orders));
+        model.addAttribute("employees", employees);
 
         return "home";
     }

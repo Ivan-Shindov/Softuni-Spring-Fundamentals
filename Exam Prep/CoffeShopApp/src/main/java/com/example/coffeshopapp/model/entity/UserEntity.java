@@ -1,8 +1,7 @@
 package com.example.coffeshopapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +21,11 @@ public class UserEntity extends BaseEntity{
 
     @Column(unique = true,nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "employee",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE)
+    private List<OrderEntity> orders;
 
     public UserEntity(){}
 
@@ -67,6 +71,15 @@ public class UserEntity extends BaseEntity{
 
     public UserEntity setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public UserEntity setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
         return this;
     }
 }
