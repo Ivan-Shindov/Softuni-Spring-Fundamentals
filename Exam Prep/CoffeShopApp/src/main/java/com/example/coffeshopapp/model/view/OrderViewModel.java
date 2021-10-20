@@ -9,7 +9,7 @@ public class OrderViewModel {
 
     private Long id;
     private String name;
-    private BigInteger price;
+    private Double price;
     private CategoryEntity category;
     private String description;
 
@@ -27,11 +27,11 @@ public class OrderViewModel {
         return this;
     }
 
-    public BigInteger getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public OrderViewModel setPrice(BigInteger price) {
+    public OrderViewModel setPrice(Double price) {
         this.price = price;
         return this;
     }

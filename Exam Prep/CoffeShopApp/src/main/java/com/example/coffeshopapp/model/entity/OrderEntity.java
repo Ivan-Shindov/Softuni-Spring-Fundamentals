@@ -17,7 +17,7 @@ public class OrderEntity extends BaseEntity {
     private String name;
 
     @Column(nullable = false)
-    private BigInteger price;
+    private Double price;
 
     @Column(nullable = false)
     private LocalDateTime orderTime;
@@ -44,11 +44,11 @@ public class OrderEntity extends BaseEntity {
         return this;
     }
 
-    public BigInteger getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public OrderEntity setPrice(BigInteger price) {
+    public OrderEntity setPrice(Double price) {
         this.price = price;
         return this;
     }

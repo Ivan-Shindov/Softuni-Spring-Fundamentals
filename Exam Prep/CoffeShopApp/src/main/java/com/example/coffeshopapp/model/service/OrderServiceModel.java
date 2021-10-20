@@ -11,7 +11,7 @@ public class OrderServiceModel {
 
     private Long id;
     private String name;
-    private BigInteger price;
+    private Double price;
     private LocalDateTime orderTime;
     private CategoryEnum category;
     private String description;
@@ -39,11 +39,11 @@ public class OrderServiceModel {
         return this;
     }
 
-    public BigInteger getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public OrderServiceModel setPrice(BigInteger price) {
+    public OrderServiceModel setPrice(Double price) {
         this.price = price;
         return this;
     }

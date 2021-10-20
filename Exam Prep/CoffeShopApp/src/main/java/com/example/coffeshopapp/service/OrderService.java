@@ -11,7 +11,7 @@ public interface OrderService {
 
     List<OrderViewModel> getAllOrderedByPriceDesc();
 
-    void readyOrder(Long id);
+    boolean readyOrder(Long id);
 
     Integer calculateLeftTime(List<OrderViewModel> orders);
 }

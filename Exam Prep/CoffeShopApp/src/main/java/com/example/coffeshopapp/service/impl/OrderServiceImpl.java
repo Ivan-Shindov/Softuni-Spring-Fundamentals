@@ -60,8 +60,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void readyOrder(Long id) {
-        this.orderRepository.deleteById(id);
+    public boolean readyOrder(Long id) {
+        String username = orderRepository.findById(id).orElse(null)
+                .getEmployee().getUsername();
+
+        if (username.equals(currentUser.getUsername())) {
+            orderRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 
     @Override

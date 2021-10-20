@@ -15,7 +15,7 @@ public class AddOrderBindingModel {
 
     @Positive
     @NotNull
-    private BigDecimal price;
+    private Double price;
 
     @PastOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -40,11 +40,11 @@ public class AddOrderBindingModel {
         return this;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public AddOrderBindingModel setPrice(BigDecimal price) {
+    public AddOrderBindingModel setPrice(Double price) {
         this.price = price;
         return this;
     }
