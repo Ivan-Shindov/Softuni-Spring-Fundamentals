@@ -11,7 +11,9 @@
 </header>
 <main class="p-5 align-content-center bg-blur my-main">
 
-    <h2 class="text-light border-bottom" th:text="|Total sold copies of all albums: ${copies}|"></h2>
+    <h2 th:if="${copies} == null" class="text-light border-bottom">There is no albums yet, you can add one.</h2>
+
+    <h2 th:unless="${copies} == null" class="text-light border-bottom" th:text="|Total sold copies of all albums: ${copies}|"></h2>
     <div class="row">
         <div class="col-md-3" th:each="album : ${viewModelsOrdered}" th:object="${album}">
             <div class="card mb-4 box-shadow">

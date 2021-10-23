@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<AlbumEntity,Long> {
@@ -14,6 +15,6 @@ public interface AlbumRepository extends JpaRepository<AlbumEntity,Long> {
     List<AlbumEntity> findAllSortedDescByCopies();
 
     @Query("SELECT sum(a.copies) FROM AlbumEntity a")
-    long getAllTotalCopies();
+    Optional<Long> getAllTotalCopies();
 
 }

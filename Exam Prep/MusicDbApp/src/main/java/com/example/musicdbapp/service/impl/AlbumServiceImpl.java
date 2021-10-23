@@ -67,10 +67,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Long getCountAllCopies() {
-        long allTotalCopies = albumRepository.getAllTotalCopies();
 
-        System.out.println();
-        return allTotalCopies;
+        return albumRepository.getAllTotalCopies().orElse(null);
     }
 
     @Override
