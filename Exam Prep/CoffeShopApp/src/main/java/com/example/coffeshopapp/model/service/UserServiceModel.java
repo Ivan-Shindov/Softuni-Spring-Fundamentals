@@ -11,7 +11,8 @@ public class UserServiceModel {
     private String password;
     private String email;
 
-    public UserServiceModel(){}
+    public UserServiceModel() {
+    }
 
     public Long getId() {
         return id;

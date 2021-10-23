@@ -11,7 +11,7 @@ public class CurrentUser {
     private String username;
     private boolean loggedIn;
 
-    public CurrentUser(){
+    public CurrentUser() {
 
     }
 

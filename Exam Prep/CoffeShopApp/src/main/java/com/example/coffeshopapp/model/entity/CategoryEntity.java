@@ -11,7 +11,7 @@ public class CategoryEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CategoryEnum name;
 
-    @Column(name = "needed_time",nullable = false)
+    @Column(name = "needed_time", nullable = false)
     private Integer neededTime;
 
     public CategoryEntity() {

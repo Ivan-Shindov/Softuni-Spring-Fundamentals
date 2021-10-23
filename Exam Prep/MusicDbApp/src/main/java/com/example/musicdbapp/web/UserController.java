@@ -60,7 +60,7 @@ public class UserController {
         userService.registerAndLogin(serviceModel);
 
 
-        return "index";
+        return "home";
     }
 
     @GetMapping("/users/logout")
@@ -111,7 +111,7 @@ public class UserController {
 
         userService.login(modelMapper.map(userLoginBindingModel, UserLoginServiceModel.class));
 
-        return "index";
+        return "redirect:/home";
     }
 
 }

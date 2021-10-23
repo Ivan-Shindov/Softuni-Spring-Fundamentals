@@ -25,13 +25,13 @@ public class OrderEntity extends BaseEntity {
     @ManyToOne
     private CategoryEntity category;
 
-    @Column(columnDefinition = "LONGTEXT",nullable = false)
+    @Column(columnDefinition = "LONGTEXT", nullable = false)
     private String description;
 
     @ManyToOne
     private UserEntity employee;
 
-    public OrderEntity(){
+    public OrderEntity() {
 
     }
 

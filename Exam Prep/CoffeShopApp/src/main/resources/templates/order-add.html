@@ -61,7 +61,8 @@
                                 aria-describedby="categoryHelpInline">
                             <option value="" selected>Category</option>
                             <option th:each="c : ${T(com.example.coffeshopapp.model.entity.enums.CategoryEnum).values()}"
-                                    th:value="${c}" th:text="${c}">Coffee</option>
+                                    th:value="${c}" th:text="${c}">Coffee
+                            </option>
 
                         </select>
                         <small id="categoryHelpInline" class="invalid-feedback bg-danger text-light rounded">

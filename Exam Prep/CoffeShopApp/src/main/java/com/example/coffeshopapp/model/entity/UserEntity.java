@@ -5,9 +5,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @Column
@@ -19,7 +19,7 @@ public class UserEntity extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "employee",
@@ -27,7 +27,8 @@ public class UserEntity extends BaseEntity{
             cascade = CascadeType.REMOVE)
     private List<OrderEntity> orders;
 
-    public UserEntity(){}
+    public UserEntity() {
+    }
 
     public String getUsername() {
         return username;

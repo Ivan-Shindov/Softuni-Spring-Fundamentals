@@ -65,4 +65,16 @@ public class UserServiceImpl implements UserService {
                     .setLoggedIn(true);
         }
     }
+
+    @Override
+    public UserEntity findByUsername(String username) {
+
+        UserEntity userEntity = userRepository.findByUsername(username).orElse(null);
+
+        if (userEntity == null) {
+            return null;
+        }
+
+        return userEntity;
+    }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<CategoryEntity,Long> {
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
     Optional<CategoryEntity> findByName(CategoryEnum name);
 }

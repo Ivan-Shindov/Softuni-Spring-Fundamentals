@@ -20,20 +20,20 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <th:block th:if="${@currentUser.isLoggedIn() == false}">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/login}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/register}">Register</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/login}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/register}">Register</a>
+                    </li>
                 </th:block>
                 <th:block th:if="${@currentUser.isLoggedIn() == true}">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/orders/add}">Add Order</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/logout}">Logout</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/orders/add}">Add Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/logout}">Logout</a>
+                    </li>
                 </th:block>
             </ul>
             <img width="50px" src="/images/coffee.png" alt="Coffee image">

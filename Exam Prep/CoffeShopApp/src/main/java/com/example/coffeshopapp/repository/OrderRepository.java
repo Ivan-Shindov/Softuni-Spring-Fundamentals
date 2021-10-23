@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrderRepository extends JpaRepository<OrderEntity,Long> {
+public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
 
     @Query("SELECT o FROM OrderEntity o ORDER BY o.price DESC")

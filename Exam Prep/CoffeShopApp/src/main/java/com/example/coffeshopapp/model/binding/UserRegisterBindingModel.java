@@ -5,12 +5,12 @@ import javax.validation.constraints.Size;
 
 public class UserRegisterBindingModel {
 
-    @Size(min = 5,max = 20)
+    @Size(min = 5, max = 20)
     private String username;
 
     private String firstName;
 
-    @Size(min = 5,max = 20)
+    @Size(min = 5, max = 20)
     private String lastName;
 
     @Email
@@ -22,7 +22,8 @@ public class UserRegisterBindingModel {
     @Size(min = 3)
     private String confirmPassword;
 
-    public UserRegisterBindingModel(){}
+    public UserRegisterBindingModel() {
+    }
 
     public String getUsername() {
         return username;

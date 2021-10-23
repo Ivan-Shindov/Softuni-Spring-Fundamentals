@@ -20,7 +20,7 @@ public class AlbumEntity extends BaseEntity{
     private LocalDate releasedDate;
     private String producer;
     private GenreEnum genre;
-    private ArtistEntity artis;
+    private ArtistEntity artist;
     private UserEntity addedFrom;
 
     public AlbumEntity(){
@@ -88,18 +88,17 @@ public class AlbumEntity extends BaseEntity{
         return this;
     }
 
-    @ManyToOne()
-    public ArtistEntity getArtis() {
-        return artis;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    public ArtistEntity getArtist() {
+        return artist;
     }
 
-    public AlbumEntity setArtis(ArtistEntity artis) {
-        this.artis = artis;
+    public AlbumEntity setArtist(ArtistEntity artis) {
+        this.artist = artis;
         return this;
     }
 
-//    @Column(name = "added_from")
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     public UserEntity getAddedFrom() {
         return addedFrom;
     }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 public class AddOrderBindingModel {
 
-    @Size(min = 3,max = 20)
+    @Size(min = 3, max = 20)
     @NotNull
     private String name;
 
@@ -29,7 +29,8 @@ public class AddOrderBindingModel {
     @NotNull
     private String description;
 
-    public AddOrderBindingModel(){}
+    public AddOrderBindingModel() {
+    }
 
     public String getName() {
         return name;
@@ -62,7 +63,7 @@ public class AddOrderBindingModel {
         return category;
     }
 
-    public AddOrderBindingModel setCategory (CategoryEnum category) {
+    public AddOrderBindingModel setCategory(CategoryEnum category) {
         this.category = category;
         return this;
     }

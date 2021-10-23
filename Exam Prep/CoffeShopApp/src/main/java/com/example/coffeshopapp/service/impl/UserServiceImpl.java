@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         login(model);
 
-        return modelMapper.map(user,UserServiceModel.class);
+        return modelMapper.map(user, UserServiceModel.class);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
-        return modelMapper.map(userEntity,UserServiceModel.class);
+        return modelMapper.map(userEntity, UserServiceModel.class);
     }
 
     @Override
@@ -64,14 +64,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<EmployeeViewModel> getAllByCountOrdersDesc() {
 
-       return userRepository.findAllOrderByCountInDesc()
-               .stream()
-               .map(userEntity -> {
-                   EmployeeViewModel model = modelMapper.map(userEntity, EmployeeViewModel.class);
+        return userRepository.findAllOrderByCountInDesc()
+                .stream()
+                .map(userEntity -> {
+                    EmployeeViewModel model = modelMapper.map(userEntity, EmployeeViewModel.class);
                     model.setCountOfOrders(userEntity.getOrders().size());
                     return model;
-               })
-               .collect(Collectors.toList());
+                })
+                .collect(Collectors.toList());
     }
 
 }
