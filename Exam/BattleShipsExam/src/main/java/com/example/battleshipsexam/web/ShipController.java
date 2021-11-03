@@ -2,6 +2,7 @@ package com.example.battleshipsexam.web;
 
 import com.example.battleshipsexam.model.binding.AddShipBindingModel;
 import com.example.battleshipsexam.service.ShipService;
+import com.example.battleshipsexam.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,13 +15,20 @@ import javax.validation.Valid;
 @Controller
 public class ShipController {
     private final ShipService shipService;
+    private final UserService userService;
 
-    public ShipController(ShipService shipService) {
+    public ShipController(ShipService shipService, UserService userService) {
         this.shipService = shipService;
+        this.userService = userService;
     }
 
     @GetMapping("/ships/add-ship")
     public String getAddShip(Model model) {
+        if(!userService.getCurrentLoggedInUser()) {
+
+            return "redirect:/users/login";
+        }
+
         if (!model.containsAttribute("addShipBindingModel")) {
             model.addAttribute("addShipBindingModel", new AddShipBindingModel());
         }

@@ -3,17 +3,14 @@ package bg.softuni.Mobilelele.service.impl;
 import bg.softuni.Mobilelele.model.entity.Role;
 import bg.softuni.Mobilelele.model.entity.User;
 import bg.softuni.Mobilelele.model.enums.RoleEnum;
-import bg.softuni.Mobilelele.model.service.UserLoginServiceModel;
 import bg.softuni.Mobilelele.model.service.UserRegisterServiceModel;
 import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.repository.UserRoleRepository;
 import bg.softuni.Mobilelele.service.UserService;
-import bg.softuni.Mobilelele.user.CurrentUser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,52 +18,14 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    public final CurrentUser currentUser;
     public final UserRoleRepository userRoleRepository;
 
     public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository,
-                           CurrentUser currentUser, UserRoleRepository userRoleRepository) {
+                           UserRoleRepository userRoleRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-        this.currentUser = currentUser;
         this.userRoleRepository = userRoleRepository;
     }
-
-
-    @Override
-    public boolean login(UserLoginServiceModel loginServiceModel) {
-
-        Optional<User> userEntityOpt = userRepository.findByUsername(loginServiceModel.getUsername());
-
-        if (userEntityOpt.isEmpty()) {
-            logout();
-            return false;
-        } else {
-            boolean success = passwordEncoder.matches(
-                    loginServiceModel.getRawPass(),
-                    userEntityOpt.get().getPassword());
-
-            if (success) {
-                User loggedUser = userEntityOpt.get();
-
-                login(loggedUser);
-
-                loggedUser.getRoles()
-                        .forEach(r -> currentUser.addRole(r.getRole()));
-            }
-
-            return success;
-        }
-
-
-    }
-
-    @Override
-    public void logout() {
-        currentUser.clear();
-    }
-
-
 
     @Override
     public void registerAndLogin(UserRegisterServiceModel userServiceModel) {
@@ -84,8 +43,8 @@ public class UserServiceImpl implements UserService {
                 .setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
 
         userRepository.save(user);
-
-        login(user);
+            //TODO
+       // login(user);
     }
 
     @Override
@@ -94,30 +53,12 @@ public class UserServiceImpl implements UserService {
        return userRepository.findByUsernameIgnoreCase(username).isEmpty();
     }
 
-    @Override
-    public boolean isLogin() {
 
-        return currentUser.isLoggedIn();
-    }
 
     @Override
     public User findByUsername(String name) {
 
        return userRepository.findByUsername(name).orElse(null);
-    }
-
-    @Override
-    public String getCurrentUserUsername() {
-        return currentUser.getUsername();
-    }
-
-
-    private void login(User user) {
-
-        currentUser.setLoggedIn(true)
-                .setUsername(user.getUsername())
-                .setFirstName(user.getFirstName())
-                .setLastName(user.getLastName());
     }
 
 

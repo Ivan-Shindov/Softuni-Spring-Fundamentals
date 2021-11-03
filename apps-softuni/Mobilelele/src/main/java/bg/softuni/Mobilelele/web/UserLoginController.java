@@ -26,24 +26,24 @@ public class UserLoginController {
         return "auth-login";
     }
 
-    @PostMapping("/users/login")
-    public String login(UserLoginBindingModel userLoginBindingModel) {
-
-        UserLoginServiceModel userLogin = new UserLoginServiceModel();
-
-        boolean loginSuccess = userService.login(
-                userLogin.setUsername(userLoginBindingModel.getUsername())
-                        .setRawPass(userLoginBindingModel.getPassword()));
-
-        LOGGER.info("User tried to login username {} , is successful ? = {}",
-                userLoginBindingModel.getUsername(),
-                loginSuccess);
-
-        if (loginSuccess) {
-            return "redirect:/";
-        }
-
-        return "redirect:/users/login";
-    }
+//    @PostMapping("/users/login")
+//    public String login(UserLoginBindingModel userLoginBindingModel) {
+//
+//        UserLoginServiceModel userLogin = new UserLoginServiceModel();
+//
+//        boolean loginSuccess = userService.login(
+//                userLogin.setUsername(userLoginBindingModel.getUsername())
+//                        .setRawPass(userLoginBindingModel.getPassword()));
+//
+//        LOGGER.info("User tried to login username {} , is successful ? = {}",
+//                userLoginBindingModel.getUsername(),
+//                loginSuccess);
+//
+//        if (loginSuccess) {
+//            return "redirect:/";
+//        }
+//
+//        return "redirect:/users/login";
+//    }
 
 }

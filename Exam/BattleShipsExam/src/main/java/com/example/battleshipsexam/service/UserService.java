@@ -3,6 +3,7 @@ package com.example.battleshipsexam.service;
 import com.example.battleshipsexam.model.binding.LoginUserBindingModel;
 import com.example.battleshipsexam.model.binding.RegisterUserBindingModel;
 import com.example.battleshipsexam.model.service.UserServiceModel;
+import com.example.battleshipsexam.security.CurrentUser;
 
 public interface UserService {
     UserServiceModel findByUsername(String username);
@@ -14,4 +15,6 @@ public interface UserService {
     void logout();
 
     boolean findByUsernameAndPassword(LoginUserBindingModel loginUserBindingModel);
+
+    boolean getCurrentLoggedInUser();
 }

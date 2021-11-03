@@ -140,10 +140,10 @@ public class OffersController {
 
         OfferAddServiceModel offerAddServiceModel = modelMapper.map(offerAddBindingModel, OfferAddServiceModel.class);
 
-        if (!userService.isLogin()) {
-
-            return "redirect:/users/login";
-        }
+//        if (!userService.isLogin()) {
+//
+//            return "redirect:/users/login";
+//        }
 
         offerService.addOffer(offerAddServiceModel);
 

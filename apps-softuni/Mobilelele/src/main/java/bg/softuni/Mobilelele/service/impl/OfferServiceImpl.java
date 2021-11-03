@@ -16,7 +16,6 @@ import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
 import bg.softuni.Mobilelele.service.UserService;
-import bg.softuni.Mobilelele.user.CurrentUser;
 import bg.softuni.Mobilelele.web.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -155,13 +154,15 @@ public class OfferServiceImpl implements OfferService {
 
         modelRepository.save(model);
 
-        String currentUserUsername = userService.getCurrentUserUsername();
+        //TODO
+//        String currentUserUsername = userService.getCurrentUserUsername();
 
         Offer offer = modelMapper.map(offerAddServiceModel, Offer.class);
 
         offer
-                .setModel(model)
-                .setSeller(userService.findByUsername(currentUserUsername));
+                .setModel(model);
+        //TODO
+//  .setSeller(userService.findByUsername(currentUserUsername));
 
         offerRepository.save(offer);
     }
