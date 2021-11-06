@@ -3,8 +3,13 @@ package bg.softuni.Mobilelele.web;
 import bg.softuni.Mobilelele.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserLoginController {
@@ -17,30 +22,32 @@ public class UserLoginController {
     }
 
     @GetMapping("/users/login")
-    public String login() {
+    public String login(Model model) {
 
+        if (!model.containsAttribute("validation")) {
+            model.addAttribute("validation",false);
+        }
 
         return "auth-login";
     }
 
-//    @PostMapping("/users/login")
-//    public String login(UserLoginBindingModel userLoginBindingModel) {
-//
-//        UserLoginServiceModel userLogin = new UserLoginServiceModel();
-//
-//        boolean loginSuccess = userService.login(
-//                userLogin.setUsername(userLoginBindingModel.getUsername())
-//                        .setRawPass(userLoginBindingModel.getPassword()));
-//
-//        LOGGER.info("User tried to login username {} , is successful ? = {}",
-//                userLoginBindingModel.getUsername(),
-//                loginSuccess);
-//
-//        if (loginSuccess) {
-//            return "redirect:/";
-//        }
-//
-//        return "redirect:/users/login";
+//    @ModelAttribute
+//    public String username() {
+//        return UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
 //    }
+
+    @PostMapping("/users/login-error")
+    public String failLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                    String username,
+            RedirectAttributes redirectAttributes) {
+
+        redirectAttributes
+                .addFlashAttribute("validation",true)
+                .addFlashAttribute("username", username);
+
+
+        return "redirect:/users/login";
+    }
 
 }
