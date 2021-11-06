@@ -12,7 +12,6 @@ import bg.softuni.Mobilelele.model.views.ModelDetailsView;
 import bg.softuni.Mobilelele.model.views.OfferSummaryView;
 import bg.softuni.Mobilelele.repository.ModelRepository;
 import bg.softuni.Mobilelele.repository.OfferRepository;
-import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
 import bg.softuni.Mobilelele.service.UserService;
@@ -137,7 +136,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public void addOffer(OfferAddServiceModel offerAddServiceModel) {
+    public OfferAddServiceModel addOffer(OfferAddServiceModel offerAddServiceModel, String owner) {
         String brandName = offerAddServiceModel.getBrand();
         Brand brand = brandService.findByBrandOrCreate(brandName);
 
@@ -154,17 +153,15 @@ public class OfferServiceImpl implements OfferService {
 
         modelRepository.save(model);
 
-        //TODO
-//        String currentUserUsername = userService.getCurrentUserUsername();
-
         Offer offer = modelMapper.map(offerAddServiceModel, Offer.class);
 
         offer
-                .setModel(model);
-        //TODO
-//  .setSeller(userService.findByUsername(currentUserUsername));
+                .setModel(model)
+                .setSeller(userService.findByUsername(owner));
 
         offerRepository.save(offer);
+
+        return modelMapper.map(offer,OfferAddServiceModel.class);
     }
 
     private OfferSummaryView mapper(Offer offer) {

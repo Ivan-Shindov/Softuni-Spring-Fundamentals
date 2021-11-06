@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 public class OfferAddServiceModel {
 
+    private Long id;
     private Integer year;
     private Integer mileage;
     private BigDecimal price;
@@ -95,6 +96,15 @@ public class OfferAddServiceModel {
 
     public OfferAddServiceModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferAddServiceModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }

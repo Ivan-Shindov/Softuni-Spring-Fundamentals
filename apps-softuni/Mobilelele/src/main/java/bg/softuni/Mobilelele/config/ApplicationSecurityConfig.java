@@ -23,7 +23,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
 
         auth
                 .userDetailsService(userDetailsService)
@@ -57,14 +58,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 // it's url which spring implement for me, log out user
-                .logoutUrl("/logout")
+                .logoutUrl("/users/logout")
                 // after logout go to index page
                 .logoutSuccessUrl("/")
                 // remove the session from server
                 .invalidateHttpSession(true)
                 // delete the cookie that references my session
                 .deleteCookies("JSESSIONID");
-
 
     }
 }

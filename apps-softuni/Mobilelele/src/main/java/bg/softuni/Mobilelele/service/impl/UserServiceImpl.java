@@ -7,6 +7,7 @@ import bg.softuni.Mobilelele.model.service.UserRegisterServiceModel;
 import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.repository.UserRoleRepository;
 import bg.softuni.Mobilelele.service.UserService;
+import bg.softuni.Mobilelele.web.exception.ObjectNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String name) {
 
-       return userRepository.findByUsername(name).orElse(null);
+       return userRepository.findByUsername(name).orElseThrow(() -> new ObjectNotFoundException("Not found user with username: " + name));
     }
 
 

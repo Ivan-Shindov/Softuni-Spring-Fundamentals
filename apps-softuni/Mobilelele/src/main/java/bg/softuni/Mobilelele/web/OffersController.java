@@ -10,7 +10,9 @@ import bg.softuni.Mobilelele.model.views.ModelDetailsView;
 import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
 import bg.softuni.Mobilelele.service.UserService;
+import bg.softuni.Mobilelele.service.impl.MobileleUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class OffersController {
@@ -126,7 +127,8 @@ public class OffersController {
     @PostMapping("/offers/add")
     public String postOffer(@Valid OfferAddBindingModel offerAddBindingModel,
                             BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes) {
+                            RedirectAttributes redirectAttributes,
+                            @AuthenticationPrincipal MobileleUser user) {
 
         if (bindingResult.hasErrors()){
 
@@ -140,13 +142,8 @@ public class OffersController {
 
         OfferAddServiceModel offerAddServiceModel = modelMapper.map(offerAddBindingModel, OfferAddServiceModel.class);
 
-//        if (!userService.isLogin()) {
-//
-//            return "redirect:/users/login";
-//        }
+        OfferAddServiceModel addOffer = offerService.addOffer(offerAddServiceModel, user.getUserIdentifier());
 
-        offerService.addOffer(offerAddServiceModel);
-
-        return "offer-add";
+        return "redirect:/offers/"+ addOffer.getId() + "/details";
     }
 }
