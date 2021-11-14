@@ -1,5 +1,6 @@
 package bg.example.errors.web;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ProductController {
     public ModelAndView handleDbExceptions(ProductNotFoundException e) {
         ModelAndView modelAndView = new ModelAndView("product-not-found");
         modelAndView.addObject("productId", e.getProductId());
-
+        modelAndView.setStatus(HttpStatus.NOT_FOUND);
         return modelAndView;
     }
 
