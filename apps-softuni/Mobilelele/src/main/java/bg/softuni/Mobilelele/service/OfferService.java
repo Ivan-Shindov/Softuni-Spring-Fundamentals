@@ -17,6 +17,8 @@ public interface OfferService {
 
     void deleteOffer(long id);
 
+    boolean isOwner(String username, Long offerId);
+
     void updateOffer(OfferUpdateServiceModel offerUpdateServiceModel);
 
     OfferAddServiceModel addOffer(OfferAddServiceModel offerAddServiceModel, String owner);

@@ -1,10 +1,9 @@
 package bg.softuni.Mobilelele.service.impl;
 
-import bg.softuni.Mobilelele.model.entity.Brand;
-import bg.softuni.Mobilelele.model.entity.Model;
-import bg.softuni.Mobilelele.model.entity.Offer;
+import bg.softuni.Mobilelele.model.entity.*;
 import bg.softuni.Mobilelele.model.enums.CategoryEnum;
 import bg.softuni.Mobilelele.model.enums.EngineEnum;
+import bg.softuni.Mobilelele.model.enums.RoleEnum;
 import bg.softuni.Mobilelele.model.enums.TransmissionEnum;
 import bg.softuni.Mobilelele.model.service.OfferAddServiceModel;
 import bg.softuni.Mobilelele.model.service.OfferUpdateServiceModel;
@@ -12,33 +11,34 @@ import bg.softuni.Mobilelele.model.views.ModelDetailsView;
 import bg.softuni.Mobilelele.model.views.OfferSummaryView;
 import bg.softuni.Mobilelele.repository.ModelRepository;
 import bg.softuni.Mobilelele.repository.OfferRepository;
+import bg.softuni.Mobilelele.repository.UserRepository;
 import bg.softuni.Mobilelele.service.BrandService;
 import bg.softuni.Mobilelele.service.OfferService;
-import bg.softuni.Mobilelele.service.UserService;
 import bg.softuni.Mobilelele.web.exception.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final ModelRepository modelRepository;
     private final BrandService brandService;
-    private final UserService userService;
 
-    public OfferServiceImpl(OfferRepository offerRepository, ModelMapper modelMapper,
-                            ModelRepository modelRepository, BrandService brandService, UserService userService) {
+    public OfferServiceImpl(OfferRepository offerRepository, UserRepository userRepository, ModelMapper modelMapper,
+                            ModelRepository modelRepository, BrandService brandService) {
         this.offerRepository = offerRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.modelRepository = modelRepository;
         this.brandService = brandService;
-        this.userService = userService;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(20000)
                     .setYear(2019)
                     .setPrice(BigDecimal.valueOf(200000))
-                    .setSeller(userService.findByUsername("pesho"))
+                    .setSeller(userRepository.findByUsername("pesho").get())
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             Offer offer2 = new Offer();
@@ -67,7 +67,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(10000)
                     .setYear(2018)
                     .setPrice(BigDecimal.valueOf(204200))
-                    .setSeller(userService.findByUsername("pesho"))
+                    .setSeller(userRepository.findByUsername("pesho").get())
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             Offer offer3 = new Offer();
@@ -79,7 +79,7 @@ public class OfferServiceImpl implements OfferService {
                     .setMileage(126000)
                     .setYear(2020)
                     .setPrice(BigDecimal.valueOf(108_555))
-                    .setSeller(userService.findByUsername("admin"))
+                    .setSeller(userRepository.findByUsername("admin").get())
                     .setTransmission(TransmissionEnum.AUTOMATIC);
 
             offerRepository.save(offer2);
@@ -116,6 +116,28 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public void deleteOffer(long id) {
         offerRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean isOwner(String username, Long offerId) {
+        Optional<Offer> offerOptional = this.offerRepository.findById(offerId);
+
+        Optional<User> caller = this.userRepository.findByUsername(username);
+
+        if (offerOptional.isEmpty() || caller.isEmpty()) {
+            return false;
+        } else {
+            Offer offer = offerOptional.get();
+
+            return isAdmin(caller.get()) ||
+                       offer.getSeller().getUsername().equalsIgnoreCase(username);
+        }
+    }
+
+    private boolean isAdmin(User user) {
+        return user.getRoles().stream()
+                .map(Role::getRole)
+                .anyMatch(r -> r == RoleEnum.ADMIN);
     }
 
     @Override
@@ -157,7 +179,7 @@ public class OfferServiceImpl implements OfferService {
 
         offer
                 .setModel(model)
-                .setSeller(userService.findByUsername(owner));
+                .setSeller(userRepository.findByUsername(owner).orElseThrow());
 
         offerRepository.save(offer);
 

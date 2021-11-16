@@ -12,6 +12,7 @@ import bg.softuni.Mobilelele.service.OfferService;
 import bg.softuni.Mobilelele.service.UserService;
 import bg.softuni.Mobilelele.service.impl.MobileleUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class OffersController {
@@ -52,8 +54,15 @@ public class OffersController {
         return "details";
     }
 
+    @PreAuthorize("@offerServiceImpl.isOwner(#principal.name, #id)")
     @DeleteMapping("/offers/{id}")
-    public String deleteOffer(@PathVariable long id, Model model) {
+    public String deleteOffer(@PathVariable long id,
+                              Principal principal) {
+
+//        if (!offerService.isOwner(principal.getName(), id)) {
+//            throw new Exception();
+//        }
+
         offerService.deleteOffer(id);
 
         return "redirect:/offers/all";
