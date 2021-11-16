@@ -13,7 +13,7 @@ public interface OfferService {
 
     List<OfferSummaryView> getAllOffers();
 
-    ModelDetailsView getModelDetails(long id);
+    ModelDetailsView getModelDetails(String browsingUser, long id);
 
     void deleteOffer(long id);
 

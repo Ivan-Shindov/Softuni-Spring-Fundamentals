@@ -46,8 +46,9 @@ public class OffersController {
     }
 
     @GetMapping("/offers/{id}/details")
-    public String showOfferDetails(@PathVariable long id, Model model) {
-        ModelDetailsView modelDetails = offerService.getModelDetails(id);
+    public String showOfferDetails(@PathVariable long id, Model model,
+                                   @AuthenticationPrincipal MobileleUser mobileleUser) {
+        ModelDetailsView modelDetails = offerService.getModelDetails(mobileleUser.getUserIdentifier(), id);
 
         model.addAttribute("modelDetails", modelDetails);
 
@@ -69,8 +70,9 @@ public class OffersController {
     }
 
     @GetMapping("/offers/{id}/update")
-    public String offerUpdate(@PathVariable long id, Model model) {
-        ModelDetailsView modelDetails = offerService.getModelDetails(id);
+    public String offerUpdate(@PathVariable long id, Model model,
+                              @AuthenticationPrincipal MobileleUser mobileleUser) {
+        ModelDetailsView modelDetails = offerService.getModelDetails(mobileleUser.getUserIdentifier(), id);
 
         OfferUpdateBindingModel bindingModel = modelMapper.map(modelDetails,
                 OfferUpdateBindingModel.class);

@@ -22,6 +22,7 @@ public class ModelDetailsView extends BaseEntity {
     private Instant created;
     private Instant modified;
     private String image;
+    private boolean canDelete;
 
     public ModelDetailsView(){}
 
@@ -142,6 +143,15 @@ public class ModelDetailsView extends BaseEntity {
     @Override
     public ModelDetailsView setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public ModelDetailsView setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
         return this;
     }
 }

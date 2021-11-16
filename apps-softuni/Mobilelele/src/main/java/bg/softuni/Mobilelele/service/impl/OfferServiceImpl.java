@@ -99,7 +99,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public ModelDetailsView getModelDetails(long inputId) {
+    public ModelDetailsView getModelDetails(String browsingUser,long inputId) {
         Offer offer = offerRepository.findById(inputId).orElse(null);
 
         ModelDetailsView view = modelMapper.map(offer, ModelDetailsView.class);
@@ -110,6 +110,8 @@ public class OfferServiceImpl implements OfferService {
         view.setSeller(offer.getSeller().getFirstName() +
                 " " + offer.getSeller().getLastName());
         view.setImage(offer.getImageUrl());
+        view.setCanDelete(isOwner(browsingUser, inputId));
+
         return view;
     }
 
