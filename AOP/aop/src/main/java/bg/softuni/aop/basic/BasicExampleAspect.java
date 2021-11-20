@@ -25,7 +25,8 @@ public class BasicExampleAspect {
 
     @Before("track()")
     public void beforeAnyMethod(JoinPoint joinPoint) {
-        logger.info("Before calling: {}",joinPoint.getSignature());
+        logger.info("Before calling: {}",
+                joinPoint.getSignature());
     }
 
     @Before("trackGreeting()")
