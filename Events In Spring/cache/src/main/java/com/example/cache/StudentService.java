@@ -13,7 +13,6 @@ import java.util.List;
 public class StudentService {
     private final static Logger LOGGER = LoggerFactory.getLogger(StudentService.class);
     private StudentRepository studentRepository;
-    private Long dbSize = 0L;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
